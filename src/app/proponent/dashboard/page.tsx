@@ -40,20 +40,21 @@ export default function ProponentDashboard() {
         </Card>
       ) : (
         <Card withBorder p={0}>
-          <Table highlightOnHover>
-            <Table.Thead>
-              <Table.Tr>
-                <Table.Th>Control No.</Table.Th>
-                <Table.Th>Title</Table.Th>
-                <Table.Th>Status</Table.Th>
-                <Table.Th>Current Assignee</Table.Th>
-                <Table.Th>Updated</Table.Th>
-                <Table.Th>Actions</Table.Th>
-              </Table.Tr>
-            </Table.Thead>
-            <Table.Tbody>
-              {proposals.map((p) => (
-                <Table.Tr key={p.id}>
+          <Table.ScrollContainer minWidth={650}>
+            <Table highlightOnHover>
+              <Table.Thead>
+                <Table.Tr>
+                  <Table.Th>Control No.</Table.Th>
+                  <Table.Th>Title</Table.Th>
+                  <Table.Th>Status</Table.Th>
+                  <Table.Th>Current Assignee</Table.Th>
+                  <Table.Th>Updated</Table.Th>
+                  <Table.Th>Actions</Table.Th>
+                </Table.Tr>
+              </Table.Thead>
+              <Table.Tbody>
+                {proposals.map((p) => (
+                  <Table.Tr key={p.id}>
                   <Table.Td>
                     <Text size="sm" fw={500}>{p.controlNumber || "—"}</Text>
                   </Table.Td>
@@ -100,8 +101,9 @@ export default function ProponentDashboard() {
               ))}
             </Table.Tbody>
           </Table>
-        </Card>
-      )}
-    </Stack>
-  );
+        </Table.ScrollContainer>
+      </Card>
+    )}
+  </Stack>
+);
 }

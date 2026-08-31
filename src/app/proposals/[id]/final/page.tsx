@@ -100,57 +100,61 @@ export default function FinalDocumentPage() {
             {/* Implementation Plan */}
             <div>
               <Text size="sm" fw={700} tt="uppercase" c="blue" mb={4}>V. Implementation Plan</Text>
-              <Table withTableBorder withColumnBorders>
-                <Table.Thead>
-                  <Table.Tr>
-                    <Table.Th>Activity</Table.Th>
-                    <Table.Th>Date</Table.Th>
-                    <Table.Th>Responsible</Table.Th>
-                    <Table.Th>Expected Output</Table.Th>
-                  </Table.Tr>
-                </Table.Thead>
-                <Table.Tbody>
-                  {latestVersion.implementationPlan.map((row, i) => (
-                    <Table.Tr key={i}>
-                      <Table.Td>{row.activity}</Table.Td>
-                      <Table.Td>{row.date}</Table.Td>
-                      <Table.Td>{row.responsible}</Table.Td>
-                      <Table.Td>{row.output}</Table.Td>
+              <Table.ScrollContainer minWidth={500}>
+                <Table withTableBorder withColumnBorders>
+                  <Table.Thead>
+                    <Table.Tr>
+                      <Table.Th>Activity</Table.Th>
+                      <Table.Th>Date</Table.Th>
+                      <Table.Th>Responsible</Table.Th>
+                      <Table.Th>Expected Output</Table.Th>
                     </Table.Tr>
-                  ))}
-                </Table.Tbody>
-              </Table>
+                  </Table.Thead>
+                  <Table.Tbody>
+                    {latestVersion.implementationPlan.map((row, i) => (
+                      <Table.Tr key={i}>
+                        <Table.Td>{row.activity}</Table.Td>
+                        <Table.Td>{row.date}</Table.Td>
+                        <Table.Td>{row.responsible}</Table.Td>
+                        <Table.Td>{row.output}</Table.Td>
+                      </Table.Tr>
+                    ))}
+                  </Table.Tbody>
+                </Table>
+              </Table.ScrollContainer>
             </div>
 
             {/* Budget */}
             <div>
               <Text size="sm" fw={700} tt="uppercase" c="blue" mb={4}>VI. Budget</Text>
-              <Table withTableBorder withColumnBorders>
-                <Table.Thead>
-                  <Table.Tr>
-                    <Table.Th>Particular</Table.Th>
-                    <Table.Th>Qty</Table.Th>
-                    <Table.Th>Unit Cost</Table.Th>
-                    <Table.Th>Total</Table.Th>
-                  </Table.Tr>
-                </Table.Thead>
-                <Table.Tbody>
-                  {latestVersion.budget.map((row, i) => (
-                    <Table.Tr key={i}>
-                      <Table.Td>{row.particular}</Table.Td>
-                      <Table.Td>{row.qty}</Table.Td>
-                      <Table.Td>₱{row.unitCost.toLocaleString()}</Table.Td>
-                      <Table.Td>₱{(row.qty * row.unitCost).toLocaleString()}</Table.Td>
+              <Table.ScrollContainer minWidth={500}>
+                <Table withTableBorder withColumnBorders>
+                  <Table.Thead>
+                    <Table.Tr>
+                      <Table.Th>Particular</Table.Th>
+                      <Table.Th>Qty</Table.Th>
+                      <Table.Th>Unit Cost</Table.Th>
+                      <Table.Th>Total</Table.Th>
                     </Table.Tr>
-                  ))}
-                </Table.Tbody>
-                <Table.Tfoot>
-                  <Table.Tr>
-                    <Table.Td colSpan={3}><Text fw={700} ta="right">Grand Total</Text></Table.Td>
-                    <Table.Td><Text fw={700}>₱{budgetTotal.toLocaleString()}</Text></Table.Td>
-                  </Table.Tr>
-                </Table.Tfoot>
-              </Table>
+                  </Table.Thead>
+                  <Table.Tbody>
+                    {latestVersion.budget.map((row, i) => (
+                      <Table.Tr key={i}>
+                        <Table.Td>{row.particular}</Table.Td>
+                        <Table.Td>{row.qty}</Table.Td>
+                        <Table.Td>₱{row.unitCost.toLocaleString()}</Table.Td>
+                        <Table.Td>₱{(row.qty * row.unitCost).toLocaleString()}</Table.Td>
+                      </Table.Tr>
+                    ))}
+                  </Table.Tbody>
+                  <Table.Tfoot>
+                    <Table.Tr>
+                      <Table.Td colSpan={3}><Text fw={700} ta="right">Grand Total</Text></Table.Td>
+                      <Table.Td><Text fw={700}>₱{budgetTotal.toLocaleString()}</Text></Table.Td>
+                    </Table.Tr>
+                  </Table.Tfoot>
+                </Table>
+              </Table.ScrollContainer>
               <Text size="sm" mt={4}><strong>Funding Source:</strong> {latestVersion.fundingSource}</Text>
             </div>
           </Stack>

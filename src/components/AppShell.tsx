@@ -6,14 +6,13 @@ import {
   Text,
   NavLink,
   Button,
-  Menu,
   Avatar,
   Badge,
-  UnstyledButton,
   Box,
   Burger,
   Image,
   Tooltip,
+  ActionIcon,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import {
@@ -44,7 +43,7 @@ export function AppShellLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
   const { user, logout } = useAuthStore();
-  const [opened, { toggle }] = useDisclosure(true);
+  const [opened, { toggle, close }] = useDisclosure(false);
 
   if (pathname === "/login") {
     return <>{children}</>;
@@ -54,6 +53,11 @@ export function AppShellLayout({ children }: { children: React.ReactNode }) {
     ? NAV_ITEMS.filter((item) => item.roles === "all" || item.roles.includes(user.role))
     : [];
 
+  const handleNavClick = (href: string) => {
+    close();
+    router.push(href);
+  };
+
   return (
     <MantineAppShell
       header={{ height: 60 }}
@@ -62,11 +66,12 @@ export function AppShellLayout({ children }: { children: React.ReactNode }) {
         breakpoint: "sm",
         collapsed: { mobile: !opened, desktop: !opened },
       }}
-      padding="md"
+      padding={{ base: "xs", sm: "md" }}
     >
       <MantineAppShell.Header>
-        <Group h="100%" px="md" justify="space-between">
-          <Group gap="sm">
+        <Group h="100%" px={{ base: "xs", sm: "md" }} justify="space-between" wrap="nowrap">
+          {/* Left: Burger + Branding */}
+          <Group gap="xs" wrap="nowrap">
             {user && (
               <Burger
                 opened={opened}
@@ -77,79 +82,122 @@ export function AppShellLayout({ children }: { children: React.ReactNode }) {
             )}
             <Group
               gap="xs"
+              wrap="nowrap"
               style={{ cursor: "pointer" }}
               onClick={() => router.push(user ? getHomeRoute(user.role) : "/login")}
             >
               <Image
                 src="/logo.png"
                 alt="DepEd Sorsogon Logo"
-                w={36}
-                h={36}
+                w={34}
+                h={34}
                 fit="contain"
               />
-              <div>
-                <Text fw={700} size="md" lh={1.1}>
-                  <Text span c="blue" inherit>CID e-Proposal System</Text>
+              <Box>
+                <Text fw={700} size="sm" lh={1.1} lineClamp={1}>
+                  <Text span c="blue" inherit>CID e-Proposal</Text>
                 </Text>
-                <Text size="xs" c="dimmed" lh={1}>
+                <Text size="xs" c="dimmed" lh={1} visibleFrom="xs">
                   SDO Sorsogon
                 </Text>
-              </div>
+              </Box>
             </Group>
           </Group>
 
-          <Group gap="xs">
+          {/* Right: User profile & actions */}
+          <Group gap="xs" wrap="nowrap">
             {user ? (
-              <Group gap="xs">
-                <Badge variant="light" size="md">
+              <Group gap="xs" wrap="nowrap">
+                <Badge variant="light" size="sm" visibleFrom="sm">
                   {ROLE_LABELS[user.role]}
                 </Badge>
+
+                {/* User avatar + name */}
                 <Group
                   gap={6}
-                  px="xs"
-                  py={4}
+                  px={{ base: 4, sm: 8 }}
+                  py={3}
+                  wrap="nowrap"
                   style={{
                     borderRadius: 6,
-
+                    backgroundColor: "var(--mantine-color-gray-1)",
                   }}
                 >
                   <Avatar size="sm" color="blue" radius="xl">
                     {user.name.charAt(0)}
                   </Avatar>
-                  <Text size="sm" fw={600}>{user.name}</Text>
+                  <Text size="xs" fw={600} visibleFrom="md" lineClamp={1}>
+                    {user.name}
+                  </Text>
                 </Group>
 
-                <Tooltip label="Switch user / role">
-                  <Button
-                    variant="subtle"
-                    color="blue"
-                    size="xs"
-                    leftSection={<IconSwitchHorizontal size={14} />}
-                    onClick={() => router.push("/login")}
-                  >
-                    Switch User
-                  </Button>
-                </Tooltip>
+                {/* Desktop Buttons */}
+                <Box visibleFrom="sm">
+                  <Group gap={6} wrap="nowrap">
+                    <Tooltip label="Switch user or demo role">
+                      <Button
+                        variant="subtle"
+                        color="blue"
+                        size="xs"
+                        leftSection={<IconSwitchHorizontal size={14} />}
+                        onClick={() => router.push("/login")}
+                      >
+                        Switch User
+                      </Button>
+                    </Tooltip>
 
-                <Tooltip label="Logout">
-                  <Button
-                    variant="subtle"
-                    color="red"
-                    size="xs"
-                    leftSection={<IconLogout size={14} />}
-                    onClick={() => {
-                      logout();
-                      router.push("/login");
-                    }}
-                  >
-                    Logout
-                  </Button>
-                </Tooltip>
+                    <Tooltip label="Logout">
+                      <Button
+                        variant="subtle"
+                        color="red"
+                        size="xs"
+                        leftSection={<IconLogout size={14} />}
+                        onClick={() => {
+                          logout();
+                          router.push("/login");
+                        }}
+                      >
+                        Logout
+                      </Button>
+                    </Tooltip>
+                  </Group>
+                </Box>
+
+                {/* Mobile Icon-only Buttons */}
+                <Box hiddenFrom="sm">
+                  <Group gap={4} wrap="nowrap">
+                    <Tooltip label="Switch user">
+                      <ActionIcon
+                        variant="light"
+                        color="blue"
+                        size="sm"
+                        onClick={() => router.push("/login")}
+                      >
+                        <IconSwitchHorizontal size={15} />
+                      </ActionIcon>
+                    </Tooltip>
+
+                    <Tooltip label="Logout">
+                      <ActionIcon
+                        variant="light"
+                        color="red"
+                        size="sm"
+                        onClick={() => {
+                          logout();
+                          router.push("/login");
+                        }}
+                      >
+                        <IconLogout size={15} />
+                      </ActionIcon>
+                    </Tooltip>
+                  </Group>
+                </Box>
               </Group>
             ) : (
               <Button
                 variant="light"
-                leftSection={<IconLogin size={16} />}
+                size="xs"
+                leftSection={<IconLogin size={14} />}
                 onClick={() => router.push("/login")}
               >
                 Login
@@ -166,7 +214,7 @@ export function AppShellLayout({ children }: { children: React.ReactNode }) {
             label={item.label}
             leftSection={<item.icon size={18} />}
             active={pathname === item.href}
-            onClick={() => router.push(item.href)}
+            onClick={() => handleNavClick(item.href)}
             variant="light"
             mb={4}
           />
@@ -174,7 +222,7 @@ export function AppShellLayout({ children }: { children: React.ReactNode }) {
       </MantineAppShell.Navbar>
 
       <MantineAppShell.Main>
-        <Box maw={1200} mx="auto">
+        <Box maw={1200} mx="auto" px={{ base: 0, sm: "xs" }}>
           {children}
         </Box>
       </MantineAppShell.Main>

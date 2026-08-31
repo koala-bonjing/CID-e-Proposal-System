@@ -59,37 +59,39 @@ export default function RoutingMatrixPage() {
       </Group>
 
       <Card withBorder p={0}>
-        <Table>
-          <Table.Thead>
-            <Table.Tr>
-              <Table.Th>Program Area</Table.Th>
-              <Table.Th>Assigned Coordinator/EPS</Table.Th>
-            </Table.Tr>
-          </Table.Thead>
-          <Table.Tbody>
-            {fullMatrix.map((entry) => (
-              <Table.Tr key={entry.programArea}>
-                <Table.Td>
-                  <Text size="sm" fw={500}>{entry.programArea}</Text>
-                </Table.Td>
-                <Table.Td>
-                  <Select
-                    size="sm"
-                    data={epsUsers.map((u) => ({ value: u.id, label: `${u.name} (${u.programArea ?? ""})` }))}
-                    value={entry.coordinatorId}
-                    onChange={(v) => {
-                      const updated = fullMatrix.map((m) =>
-                        m.programArea === entry.programArea ? { ...m, coordinatorId: v ?? "" } : m
-                      );
-                      setMatrix(updated);
-                    }}
-                    placeholder="Select coordinator"
-                  />
-                </Table.Td>
+        <Table.ScrollContainer minWidth={500}>
+          <Table>
+            <Table.Thead>
+              <Table.Tr>
+                <Table.Th>Program Area</Table.Th>
+                <Table.Th>Assigned Coordinator/EPS</Table.Th>
               </Table.Tr>
-            ))}
-          </Table.Tbody>
-        </Table>
+            </Table.Thead>
+            <Table.Tbody>
+              {fullMatrix.map((entry) => (
+                <Table.Tr key={entry.programArea}>
+                  <Table.Td>
+                    <Text size="sm" fw={500}>{entry.programArea}</Text>
+                  </Table.Td>
+                  <Table.Td>
+                    <Select
+                      size="sm"
+                      data={epsUsers.map((u) => ({ value: u.id, label: `${u.name} (${u.programArea ?? ""})` }))}
+                      value={entry.coordinatorId}
+                      onChange={(v) => {
+                        const updated = fullMatrix.map((m) =>
+                          m.programArea === entry.programArea ? { ...m, coordinatorId: v ?? "" } : m
+                        );
+                        setMatrix(updated);
+                      }}
+                      placeholder="Select coordinator"
+                    />
+                  </Table.Td>
+                </Table.Tr>
+              ))}
+            </Table.Tbody>
+          </Table>
+        </Table.ScrollContainer>
       </Card>
     </Stack>
   );

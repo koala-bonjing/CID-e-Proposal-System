@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import {
   Title, Text, Card, Stack, Group, Button, Textarea, Loader, Center,
-  Grid, Accordion, Table, Badge, Divider, Alert,
+  Grid, Accordion, Table, Badge, Divider, Alert, SimpleGrid,
 } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { IconCheck, IconArrowBack, IconX } from "@tabler/icons-react";
@@ -117,59 +117,63 @@ export default function ReviewerProposalPage() {
 
                   <div>
                     <Text size="sm" fw={500} c="dimmed">Implementation Plan</Text>
-                    <Table withTableBorder mt={4}>
-                      <Table.Thead>
-                        <Table.Tr>
-                          <Table.Th>Activity</Table.Th>
-                          <Table.Th>Date</Table.Th>
-                          <Table.Th>Responsible</Table.Th>
-                          <Table.Th>Output</Table.Th>
-                        </Table.Tr>
-                      </Table.Thead>
-                      <Table.Tbody>
-                        {latestVersion.implementationPlan.map((row, i) => (
-                          <Table.Tr key={i}>
-                            <Table.Td>{row.activity}</Table.Td>
-                            <Table.Td>{row.date}</Table.Td>
-                            <Table.Td>{row.responsible}</Table.Td>
-                            <Table.Td>{row.output}</Table.Td>
+                    <Table.ScrollContainer minWidth={500}>
+                      <Table withTableBorder mt={4}>
+                        <Table.Thead>
+                          <Table.Tr>
+                            <Table.Th>Activity</Table.Th>
+                            <Table.Th>Date</Table.Th>
+                            <Table.Th>Responsible</Table.Th>
+                            <Table.Th>Output</Table.Th>
                           </Table.Tr>
-                        ))}
-                      </Table.Tbody>
-                    </Table>
+                        </Table.Thead>
+                        <Table.Tbody>
+                          {latestVersion.implementationPlan.map((row, i) => (
+                            <Table.Tr key={i}>
+                              <Table.Td>{row.activity}</Table.Td>
+                              <Table.Td>{row.date}</Table.Td>
+                              <Table.Td>{row.responsible}</Table.Td>
+                              <Table.Td>{row.output}</Table.Td>
+                            </Table.Tr>
+                          ))}
+                        </Table.Tbody>
+                      </Table>
+                    </Table.ScrollContainer>
                   </div>
 
                   <div>
                     <Text size="sm" fw={500} c="dimmed">Budget</Text>
-                    <Table withTableBorder mt={4}>
-                      <Table.Thead>
-                        <Table.Tr>
-                          <Table.Th>Particular</Table.Th>
-                          <Table.Th>Qty</Table.Th>
-                          <Table.Th>Unit Cost</Table.Th>
-                          <Table.Th>Total</Table.Th>
-                        </Table.Tr>
-                      </Table.Thead>
-                      <Table.Tbody>
-                        {latestVersion.budget.map((row, i) => (
-                          <Table.Tr key={i}>
-                            <Table.Td>{row.particular}</Table.Td>
-                            <Table.Td>{row.qty}</Table.Td>
-                            <Table.Td>₱{row.unitCost.toLocaleString()}</Table.Td>
-                            <Table.Td>₱{(row.qty * row.unitCost).toLocaleString()}</Table.Td>
+                    <Table.ScrollContainer minWidth={500}>
+                      <Table withTableBorder mt={4}>
+                        <Table.Thead>
+                          <Table.Tr>
+                            <Table.Th>Particular</Table.Th>
+                            <Table.Th>Qty</Table.Th>
+                            <Table.Th>Unit Cost</Table.Th>
+                            <Table.Th>Total</Table.Th>
                           </Table.Tr>
-                        ))}
-                      </Table.Tbody>
-                      <Table.Tfoot>
-                        <Table.Tr>
-                          <Table.Td colSpan={3}><Text fw={600} ta="right">Grand Total</Text></Table.Td>
-                          <Table.Td><Text fw={600}>₱{budgetTotal.toLocaleString()}</Text></Table.Td>
-                        </Table.Tr>
-                      </Table.Tfoot>
-                    </Table>
+                        </Table.Thead>
+                        <Table.Tbody>
+                          {latestVersion.budget.map((row, i) => (
+                            <Table.Tr key={i}>
+                              <Table.Td>{row.particular}</Table.Td>
+                              <Table.Td>{row.qty}</Table.Td>
+                              <Table.Td>₱{row.unitCost.toLocaleString()}</Table.Td>
+                              <Table.Td>₱{(row.qty * row.unitCost).toLocaleString()}</Table.Td>
+                            </Table.Tr>
+                          ))}
+                        </Table.Tbody>
+                        <Table.Tfoot>
+                          <Table.Tr>
+                            <Table.Td colSpan={3}><Text fw={600} ta="right">Grand Total</Text></Table.Td>
+                            <Table.Td><Text fw={600}>₱{budgetTotal.toLocaleString()}</Text></Table.Td>
+                          </Table.Tr>
+                        </Table.Tfoot>
+                      </Table>
+                    </Table.ScrollContainer>
                   </div>
 
-                  <Group>
+                  <SimpleGrid cols={{ base: 1, sm: 3 }} spacing="sm">
                     <div>
                       <Text size="sm" fw={500} c="dimmed">Funding Source</Text>
                       <Text size="sm">{latestVersion.fundingSource}</Text>
@@ -182,7 +186,7 @@ export default function ReviewerProposalPage() {
                       <Text size="sm" fw={500} c="dimmed">Venue</Text>
                       <Text size="sm">{latestVersion.venue}</Text>
                     </div>
-                  </Group>
+                  </SimpleGrid>
 
                   {latestVersion.attachments.length > 0 && (
                     <div>

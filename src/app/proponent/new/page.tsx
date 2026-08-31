@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import {
   Title, TextInput, Textarea, Select, NumberInput, Button, Group, Stack,
   Card, Table, ActionIcon, Text, Alert, Stepper, Divider, Center, Loader,
+  SimpleGrid,
 } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { IconPlus, IconTrash, IconAlertCircle, IconCheck } from "@tabler/icons-react";
@@ -146,7 +147,7 @@ function NewProposalContent() {
           <Card withBorder p="lg" mt="md">
             <Stack gap="md">
               <TextInput label="Project Title" required value={title} onChange={(e) => setTitle(e.target.value)} />
-              <Group grow>
+              <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
                 <Select
                   label="Origin Type"
                   data={ORIGIN_TYPES}
@@ -161,11 +162,11 @@ function NewProposalContent() {
                   onChange={(v) => v && setProgramArea(v)}
                   searchable
                 />
-              </Group>
-              <Group grow>
+              </SimpleGrid>
+              <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
                 <TextInput label="Proposed Date" type="date" required value={proposedDate} onChange={(e) => setProposedDate(e.target.value)} />
                 <TextInput label="Venue" required value={venue} onChange={(e) => setVenue(e.target.value)} />
-              </Group>
+              </SimpleGrid>
               <TextInput label="School" value={user.school ?? ""} disabled />
               <TextInput label="District" value={user.district ?? ""} disabled />
             </Stack>
@@ -213,34 +214,36 @@ function NewProposalContent() {
             <Stack gap="md">
               <div>
                 <Text size="sm" fw={500} mb={8}>Implementation Plan *</Text>
-                <Table withTableBorder>
-                  <Table.Thead>
-                    <Table.Tr>
-                      <Table.Th>Activity</Table.Th>
-                      <Table.Th>Date</Table.Th>
-                      <Table.Th>Responsible</Table.Th>
-                      <Table.Th>Output</Table.Th>
-                      <Table.Th w={40}></Table.Th>
-                    </Table.Tr>
-                  </Table.Thead>
-                  <Table.Tbody>
-                    {implPlan.map((row, i) => (
-                      <Table.Tr key={i}>
-                        <Table.Td><TextInput size="xs" value={row.activity} onChange={(e) => { const r = [...implPlan]; r[i] = { ...r[i], activity: e.target.value }; setImplPlan(r); }} /></Table.Td>
-                        <Table.Td><TextInput size="xs" type="date" value={row.date} onChange={(e) => { const r = [...implPlan]; r[i] = { ...r[i], date: e.target.value }; setImplPlan(r); }} /></Table.Td>
-                        <Table.Td><TextInput size="xs" value={row.responsible} onChange={(e) => { const r = [...implPlan]; r[i] = { ...r[i], responsible: e.target.value }; setImplPlan(r); }} /></Table.Td>
-                        <Table.Td><TextInput size="xs" value={row.output} onChange={(e) => { const r = [...implPlan]; r[i] = { ...r[i], output: e.target.value }; setImplPlan(r); }} /></Table.Td>
-                        <Table.Td>
-                          {implPlan.length > 1 && (
-                            <ActionIcon size="sm" color="red" variant="light" onClick={() => setImplPlan(implPlan.filter((_, j) => j !== i))}>
-                              <IconTrash size={12} />
-                            </ActionIcon>
-                          )}
-                        </Table.Td>
+                <Table.ScrollContainer minWidth={600}>
+                  <Table withTableBorder>
+                    <Table.Thead>
+                      <Table.Tr>
+                        <Table.Th>Activity</Table.Th>
+                        <Table.Th>Date</Table.Th>
+                        <Table.Th>Responsible</Table.Th>
+                        <Table.Th>Output</Table.Th>
+                        <Table.Th w={40}></Table.Th>
                       </Table.Tr>
-                    ))}
-                  </Table.Tbody>
-                </Table>
+                    </Table.Thead>
+                    <Table.Tbody>
+                      {implPlan.map((row, i) => (
+                        <Table.Tr key={i}>
+                          <Table.Td><TextInput size="xs" value={row.activity} onChange={(e) => { const r = [...implPlan]; r[i] = { ...r[i], activity: e.target.value }; setImplPlan(r); }} /></Table.Td>
+                          <Table.Td><TextInput size="xs" type="date" value={row.date} onChange={(e) => { const r = [...implPlan]; r[i] = { ...r[i], date: e.target.value }; setImplPlan(r); }} /></Table.Td>
+                          <Table.Td><TextInput size="xs" value={row.responsible} onChange={(e) => { const r = [...implPlan]; r[i] = { ...r[i], responsible: e.target.value }; setImplPlan(r); }} /></Table.Td>
+                          <Table.Td><TextInput size="xs" value={row.output} onChange={(e) => { const r = [...implPlan]; r[i] = { ...r[i], output: e.target.value }; setImplPlan(r); }} /></Table.Td>
+                          <Table.Td>
+                            {implPlan.length > 1 && (
+                              <ActionIcon size="sm" color="red" variant="light" onClick={() => setImplPlan(implPlan.filter((_, j) => j !== i))}>
+                                <IconTrash size={12} />
+                              </ActionIcon>
+                            )}
+                          </Table.Td>
+                        </Table.Tr>
+                      ))}
+                    </Table.Tbody>
+                  </Table>
+                </Table.ScrollContainer>
                 <Button variant="light" size="xs" mt="xs" leftSection={<IconPlus size={14} />} onClick={() => setImplPlan([...implPlan, { activity: "", date: "", responsible: "", output: "" }])}>
                   Add Row
                 </Button>
@@ -250,41 +253,43 @@ function NewProposalContent() {
 
               <div>
                 <Text size="sm" fw={500} mb={8}>Budget *</Text>
-                <Table withTableBorder>
-                  <Table.Thead>
-                    <Table.Tr>
-                      <Table.Th>Particular</Table.Th>
-                      <Table.Th>Qty</Table.Th>
-                      <Table.Th>Unit Cost (₱)</Table.Th>
-                      <Table.Th>Total</Table.Th>
-                      <Table.Th w={40}></Table.Th>
-                    </Table.Tr>
-                  </Table.Thead>
-                  <Table.Tbody>
-                    {budget.map((row, i) => (
-                      <Table.Tr key={i}>
-                        <Table.Td><TextInput size="xs" value={row.particular} onChange={(e) => { const r = [...budget]; r[i] = { ...r[i], particular: e.target.value }; setBudget(r); }} /></Table.Td>
-                        <Table.Td><NumberInput size="xs" min={1} value={row.qty} onChange={(v) => { const r = [...budget]; r[i] = { ...r[i], qty: Number(v) || 1 }; setBudget(r); }} /></Table.Td>
-                        <Table.Td><NumberInput size="xs" min={0} value={row.unitCost} onChange={(v) => { const r = [...budget]; r[i] = { ...r[i], unitCost: Number(v) || 0 }; setBudget(r); }} /></Table.Td>
-                        <Table.Td><Text size="sm">₱{(row.qty * row.unitCost).toLocaleString()}</Text></Table.Td>
-                        <Table.Td>
-                          {budget.length > 1 && (
-                            <ActionIcon size="sm" color="red" variant="light" onClick={() => setBudget(budget.filter((_, j) => j !== i))}>
-                              <IconTrash size={12} />
-                            </ActionIcon>
-                          )}
-                        </Table.Td>
+                <Table.ScrollContainer minWidth={550}>
+                  <Table withTableBorder>
+                    <Table.Thead>
+                      <Table.Tr>
+                        <Table.Th>Particular</Table.Th>
+                        <Table.Th>Qty</Table.Th>
+                        <Table.Th>Unit Cost (₱)</Table.Th>
+                        <Table.Th>Total</Table.Th>
+                        <Table.Th w={40}></Table.Th>
                       </Table.Tr>
-                    ))}
-                  </Table.Tbody>
-                  <Table.Tfoot>
-                    <Table.Tr>
-                      <Table.Td colSpan={3}><Text fw={600} ta="right">Grand Total</Text></Table.Td>
-                      <Table.Td><Text fw={600}>₱{budgetTotal.toLocaleString()}</Text></Table.Td>
-                      <Table.Td></Table.Td>
-                    </Table.Tr>
-                  </Table.Tfoot>
-                </Table>
+                    </Table.Thead>
+                    <Table.Tbody>
+                      {budget.map((row, i) => (
+                        <Table.Tr key={i}>
+                          <Table.Td><TextInput size="xs" value={row.particular} onChange={(e) => { const r = [...budget]; r[i] = { ...r[i], particular: e.target.value }; setBudget(r); }} /></Table.Td>
+                          <Table.Td><NumberInput size="xs" min={1} value={row.qty} onChange={(v) => { const r = [...budget]; r[i] = { ...r[i], qty: Number(v) || 1 }; setBudget(r); }} /></Table.Td>
+                          <Table.Td><NumberInput size="xs" min={0} value={row.unitCost} onChange={(v) => { const r = [...budget]; r[i] = { ...r[i], unitCost: Number(v) || 0 }; setBudget(r); }} /></Table.Td>
+                          <Table.Td><Text size="sm">₱{(row.qty * row.unitCost).toLocaleString()}</Text></Table.Td>
+                          <Table.Td>
+                            {budget.length > 1 && (
+                              <ActionIcon size="sm" color="red" variant="light" onClick={() => setBudget(budget.filter((_, j) => j !== i))}>
+                                <IconTrash size={12} />
+                              </ActionIcon>
+                            )}
+                          </Table.Td>
+                        </Table.Tr>
+                      ))}
+                    </Table.Tbody>
+                    <Table.Tfoot>
+                      <Table.Tr>
+                        <Table.Td colSpan={3}><Text fw={600} ta="right">Grand Total</Text></Table.Td>
+                        <Table.Td><Text fw={600}>₱{budgetTotal.toLocaleString()}</Text></Table.Td>
+                        <Table.Td></Table.Td>
+                      </Table.Tr>
+                    </Table.Tfoot>
+                  </Table>
+                </Table.ScrollContainer>
                 <Button variant="light" size="xs" mt="xs" leftSection={<IconPlus size={14} />} onClick={() => setBudget([...budget, { particular: "", qty: 1, unitCost: 0 }])}>
                   Add Row
                 </Button>

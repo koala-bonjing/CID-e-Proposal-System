@@ -42,41 +42,43 @@ export default function ReviewerQueuePage() {
         </Card>
       ) : (
         <Card withBorder p={0}>
-          <Table highlightOnHover>
-            <Table.Thead>
-              <Table.Tr>
-                <Table.Th>Control No.</Table.Th>
-                <Table.Th>Title</Table.Th>
-                <Table.Th>Proponent</Table.Th>
-                <Table.Th>School</Table.Th>
-                <Table.Th>Program Area</Table.Th>
-                <Table.Th>Status</Table.Th>
-                <Table.Th>Action</Table.Th>
-              </Table.Tr>
-            </Table.Thead>
-            <Table.Tbody>
-              {proposals.map((p) => (
-                <Table.Tr key={p.id}>
-                  <Table.Td><Text size="sm" fw={500}>{p.controlNumber}</Text></Table.Td>
-                  <Table.Td><Text size="sm">{p.title}</Text></Table.Td>
-                  <Table.Td><Text size="sm" c="dimmed">{p.proponentId}</Text></Table.Td>
-                  <Table.Td><Text size="sm" c="dimmed">{p.school}</Text></Table.Td>
-                  <Table.Td><Badge variant="light" size="sm">{p.programArea}</Badge></Table.Td>
-                  <Table.Td><StatusBadge status={p.status} /></Table.Td>
-                  <Table.Td>
-                    <Button
-                      variant="light"
-                      size="xs"
-                      leftSection={<IconEye size={14} />}
-                      onClick={() => router.push(`/reviewer/${p.id}`)}
-                    >
-                      Review
-                    </Button>
-                  </Table.Td>
+          <Table.ScrollContainer minWidth={700}>
+            <Table highlightOnHover>
+              <Table.Thead>
+                <Table.Tr>
+                  <Table.Th>Control No.</Table.Th>
+                  <Table.Th>Title</Table.Th>
+                  <Table.Th>Proponent</Table.Th>
+                  <Table.Th>School</Table.Th>
+                  <Table.Th>Program Area</Table.Th>
+                  <Table.Th>Status</Table.Th>
+                  <Table.Th>Action</Table.Th>
                 </Table.Tr>
-              ))}
-            </Table.Tbody>
-          </Table>
+              </Table.Thead>
+              <Table.Tbody>
+                {proposals.map((p) => (
+                  <Table.Tr key={p.id}>
+                    <Table.Td><Text size="sm" fw={500}>{p.controlNumber}</Text></Table.Td>
+                    <Table.Td><Text size="sm">{p.title}</Text></Table.Td>
+                    <Table.Td><Text size="sm" c="dimmed">{p.proponentId}</Text></Table.Td>
+                    <Table.Td><Text size="sm" c="dimmed">{p.school}</Text></Table.Td>
+                    <Table.Td><Badge variant="light" size="sm">{p.programArea}</Badge></Table.Td>
+                    <Table.Td><StatusBadge status={p.status} /></Table.Td>
+                    <Table.Td>
+                      <Button
+                        variant="light"
+                        size="xs"
+                        leftSection={<IconEye size={14} />}
+                        onClick={() => router.push(`/reviewer/${p.id}`)}
+                      >
+                        Review
+                      </Button>
+                    </Table.Td>
+                  </Table.Tr>
+                ))}
+              </Table.Tbody>
+            </Table>
+          </Table.ScrollContainer>
         </Card>
       )}
     </Stack>

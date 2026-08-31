@@ -60,28 +60,30 @@ export default function AdminUsersPage() {
       </Group>
 
       <Card withBorder p={0}>
-        <Table highlightOnHover>
-          <Table.Thead>
-            <Table.Tr>
-              <Table.Th>Name</Table.Th>
-              <Table.Th>Role</Table.Th>
-              <Table.Th>School</Table.Th>
-              <Table.Th>District</Table.Th>
-              <Table.Th>Program Area</Table.Th>
-            </Table.Tr>
-          </Table.Thead>
-          <Table.Tbody>
-            {users.map((u) => (
-              <Table.Tr key={u.id}>
-                <Table.Td><Text size="sm" fw={500}>{u.name}</Text></Table.Td>
-                <Table.Td><Badge variant="light">{ROLE_LABELS[u.role]}</Badge></Table.Td>
-                <Table.Td><Text size="sm" c="dimmed">{u.school ?? "—"}</Text></Table.Td>
-                <Table.Td><Text size="sm" c="dimmed">{u.district ?? "—"}</Text></Table.Td>
-                <Table.Td><Text size="sm" c="dimmed">{u.programArea ?? "—"}</Text></Table.Td>
+        <Table.ScrollContainer minWidth={500}>
+          <Table highlightOnHover>
+            <Table.Thead>
+              <Table.Tr>
+                <Table.Th>Name</Table.Th>
+                <Table.Th>Role</Table.Th>
+                <Table.Th>School</Table.Th>
+                <Table.Th>District</Table.Th>
+                <Table.Th>Program Area</Table.Th>
               </Table.Tr>
-            ))}
-          </Table.Tbody>
-        </Table>
+            </Table.Thead>
+            <Table.Tbody>
+              {users.map((u) => (
+                <Table.Tr key={u.id}>
+                  <Table.Td><Text size="sm" fw={500}>{u.name}</Text></Table.Td>
+                  <Table.Td><Badge variant="light">{ROLE_LABELS[u.role]}</Badge></Table.Td>
+                  <Table.Td><Text size="sm" c="dimmed">{u.school ?? "—"}</Text></Table.Td>
+                  <Table.Td><Text size="sm" c="dimmed">{u.district ?? "—"}</Text></Table.Td>
+                  <Table.Td><Text size="sm" c="dimmed">{u.programArea ?? "—"}</Text></Table.Td>
+                </Table.Tr>
+              ))}
+            </Table.Tbody>
+          </Table>
+        </Table.ScrollContainer>
       </Card>
 
       <Modal opened={modalOpen} onClose={() => setModalOpen(false)} title="Add User">

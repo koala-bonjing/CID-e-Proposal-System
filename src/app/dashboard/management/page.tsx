@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   Title, Card, SimpleGrid, Text, Stack, Group, Loader, Center, Badge, Table,
-  RingProgress,
+  RingProgress, Box,
 } from "@mantine/core";
 import { useAuthStore } from "@/lib/auth-store";
 import { StatusBadge } from "@/components/StatusBadge";
@@ -58,7 +58,7 @@ export default function ManagementDashboard() {
     <Stack gap="md">
       <Title order={2}>Management Dashboard</Title>
 
-      <SimpleGrid cols={{ base: 2, sm: 4 }} spacing="md">
+      <SimpleGrid cols={{ base: 1, xs: 2, sm: 4 }} spacing="md">
         <StatCard label="Total Proposals" value={total} color="blue" />
         <StatCard label="Pending" value={pending} color="orange" />
         <StatCard label="Approved / Completed" value={approved} color="green" />
@@ -97,30 +97,34 @@ export default function ManagementDashboard() {
         </Card>
       </SimpleGrid>
 
-      <Card withBorder p="md">
-        <Text fw={600} mb="sm">All Proposals</Text>
-        <Table highlightOnHover>
-          <Table.Thead>
-            <Table.Tr>
-              <Table.Th>Control No.</Table.Th>
-              <Table.Th>Title</Table.Th>
-              <Table.Th>Program Area</Table.Th>
-              <Table.Th>Status</Table.Th>
-              <Table.Th>School</Table.Th>
-            </Table.Tr>
-          </Table.Thead>
-          <Table.Tbody>
-            {proposals.map((p) => (
-              <Table.Tr key={p.id} style={{ cursor: "pointer" }} onClick={() => router.push(`/reviewer/${p.id}`)}>
-                <Table.Td><Text size="sm" fw={500}>{p.controlNumber || "—"}</Text></Table.Td>
-                <Table.Td><Text size="sm">{p.title}</Text></Table.Td>
-                <Table.Td><Badge variant="light" size="sm">{p.programArea}</Badge></Table.Td>
-                <Table.Td><StatusBadge status={p.status} /></Table.Td>
-                <Table.Td><Text size="sm" c="dimmed">{p.school}</Text></Table.Td>
+      <Card withBorder p={0}>
+        <Box p="md" pb="xs">
+          <Text fw={600}>All Proposals</Text>
+        </Box>
+        <Table.ScrollContainer minWidth={600}>
+          <Table highlightOnHover>
+            <Table.Thead>
+              <Table.Tr>
+                <Table.Th>Control No.</Table.Th>
+                <Table.Th>Title</Table.Th>
+                <Table.Th>Program Area</Table.Th>
+                <Table.Th>Status</Table.Th>
+                <Table.Th>School</Table.Th>
               </Table.Tr>
-            ))}
-          </Table.Tbody>
-        </Table>
+            </Table.Thead>
+            <Table.Tbody>
+              {proposals.map((p) => (
+                <Table.Tr key={p.id} style={{ cursor: "pointer" }} onClick={() => router.push(`/reviewer/${p.id}`)}>
+                  <Table.Td><Text size="sm" fw={500}>{p.controlNumber || "—"}</Text></Table.Td>
+                  <Table.Td><Text size="sm">{p.title}</Text></Table.Td>
+                  <Table.Td><Badge variant="light" size="sm">{p.programArea}</Badge></Table.Td>
+                  <Table.Td><StatusBadge status={p.status} /></Table.Td>
+                  <Table.Td><Text size="sm" c="dimmed">{p.school}</Text></Table.Td>
+                </Table.Tr>
+              ))}
+            </Table.Tbody>
+          </Table>
+        </Table.ScrollContainer>
       </Card>
     </Stack>
   );
