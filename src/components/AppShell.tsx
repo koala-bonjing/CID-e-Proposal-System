@@ -11,7 +11,10 @@ import {
   Badge,
   UnstyledButton,
   Box,
+  Burger,
+  Image,
 } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import {
   IconFileText,
   IconPlus,
@@ -40,6 +43,7 @@ export function AppShellLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
   const { user, logout } = useAuthStore();
+  const [opened, { toggle }] = useDisclosure(true);
 
   if (pathname === "/login") {
     return <>{children}</>;
@@ -52,23 +56,45 @@ export function AppShellLayout({ children }: { children: React.ReactNode }) {
   return (
     <MantineAppShell
       header={{ height: 60 }}
-      navbar={{ width: 240, breakpoint: "sm" }}
+      navbar={{
+        width: 240,
+        breakpoint: "sm",
+        collapsed: { mobile: !opened, desktop: !opened },
+      }}
       padding="md"
     >
       <MantineAppShell.Header>
         <Group h="100%" px="md" justify="space-between">
-          <Group gap="xs">
-            <Text
-              fw={700}
-              size="lg"
+          <Group gap="sm">
+            {user && (
+              <Burger
+                opened={opened}
+                onClick={toggle}
+                size="sm"
+                aria-label="Toggle navigation"
+              />
+            )}
+            <Group
+              gap="xs"
               style={{ cursor: "pointer" }}
               onClick={() => router.push(user ? getHomeRoute(user.role) : "/login")}
             >
-              <Text span c="blue" inherit>DP-MAS</Text>
-              <Text span c="dimmed" size="sm" ml={8}>
-                SDO Sorsogon
-              </Text>
-            </Text>
+              <Image
+                src="/logo.png"
+                alt="DepEd Sorsogon Logo"
+                w={36}
+                h={36}
+                fit="contain"
+              />
+              <div>
+                <Text fw={700} size="md" lh={1.1}>
+                  <Text span c="blue" inherit>DP-MAS</Text>
+                </Text>
+                <Text size="xs" c="dimmed" lh={1}>
+                  SDO Sorsogon
+                </Text>
+              </div>
+            </Group>
           </Group>
 
           <Group gap="sm">

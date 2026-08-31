@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
-  Container, Title, Text, SimpleGrid, Card, Group, Avatar, Badge, Stack, Loader, Center,
+  Container, Title, Text, SimpleGrid, Card, Group, Avatar, Badge, Stack, Loader, Center, Image,
 } from "@mantine/core";
 import { useAuthStore } from "@/lib/auth-store";
 import { fetchUsers } from "@/lib/api";
@@ -57,7 +57,14 @@ export default function LoginPage() {
 
   return (
     <Container size="lg" py="xl">
-      <Stack gap="xs" mb="xl" ta="center">
+      <Stack gap="xs" mb="xl" ta="center" align="center">
+        <Image
+          src="/logo.png"
+          alt="DepEd Schools Division of Sorsogon"
+          w={84}
+          h={84}
+          fit="contain"
+        />
         <Title order={1}>
           <Text span c="blue" inherit>DP-MAS</Text>
         </Title>

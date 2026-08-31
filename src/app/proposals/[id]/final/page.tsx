@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import {
-  Title, Card, Text, Stack, Table, Divider, Group, Badge, Loader, Center, Box,
+  Title, Card, Text, Stack, Table, Divider, Group, Badge, Loader, Center, Box, Image,
 } from "@mantine/core";
 import { fetchProposal } from "@/lib/api";
 import type { ProposalDetail } from "@/lib/api";
@@ -31,7 +31,14 @@ export default function FinalDocumentPage() {
     <Stack gap="md" maw={800} mx="auto" py="xl">
       {/* Header */}
       <Card withBorder p="xl" style={{ borderTop: "4px solid var(--mantine-color-blue-6)" }}>
-        <Stack gap="xs" ta="center">
+        <Stack gap="xs" ta="center" align="center">
+          <Image
+            src="/logo.png"
+            alt="DepEd SDO Sorsogon Logo"
+            w={64}
+            h={64}
+            fit="contain"
+          />
           <Text size="xs" c="dimmed" tt="uppercase" fw={700} style={{ letterSpacing: 2 }}>
             Republic of the Philippines • Department of Education
           </Text>
@@ -41,7 +48,7 @@ export default function FinalDocumentPage() {
           <Text size="xs" c="dimmed" fw={600}>
             Curriculum Implementation Division
           </Text>
-          <Divider my="sm" />
+          <Divider my="sm" w="100%" />
           <Title order={3}>{proposal.title}</Title>
           <Text size="sm" c="dimmed">{proposal.controlNumber}</Text>
         </Stack>
