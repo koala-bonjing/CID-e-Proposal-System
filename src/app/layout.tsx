@@ -6,7 +6,7 @@ import { Providers } from "./providers";
 import { AppShellLayout } from "@/components/AppShell";
 
 export const metadata: Metadata = {
-  title: "DP-MAS — Proposal Management & Approval System",
+  title: "CID e-Proposal System",
   description: "Curriculum Implementation Division Proposal Management and Approval System for DepEd Schools Division Office of Sorsogon",
 };
 
