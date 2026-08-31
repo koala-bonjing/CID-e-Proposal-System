@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import {
   Title, TextInput, Textarea, Select, NumberInput, Button, Group, Stack,
   Card, Table, ActionIcon, Text, Alert, Stepper, Divider, Center, Loader,
-  SimpleGrid,
+  SimpleGrid, Progress, Badge,
 } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { IconPlus, IconTrash, IconAlertCircle, IconCheck } from "@tabler/icons-react";
@@ -12,6 +12,14 @@ import { useAuthStore } from "@/lib/auth-store";
 import { createProposal, fetchProposal, resubmitProposal } from "@/lib/api";
 import { PROGRAM_AREAS } from "@/types";
 import type { FundingSource } from "@/types";
+
+const PROPOSAL_STEPS = [
+  { label: "Project Info", description: "Basic details" },
+  { label: "Content", description: "Rationale, objectives, outputs" },
+  { label: "Implementation", description: "Plan & budget" },
+  { label: "Other Details", description: "Funding, participants, attachments" },
+  { label: "Review & Submit", description: "Final check" },
+];
 
 const FUNDING_SOURCES: FundingSource[] = ["School MOOE", "Division MOOE", "LGU", "Partner", "Other"];
 const ORIGIN_TYPES = [
@@ -142,7 +150,54 @@ function NewProposalContent() {
     <Stack gap="md">
       <Title order={2}>{resubmitId ? "Resubmit Proposal" : "New Proposal"}</Title>
 
-      <Stepper active={active} onStepClick={setActive} size="sm">
+      {/* Mobile Progress Bar Card (hidden on desktop) */}
+      <Card withBorder p="sm" radius="md" hiddenFrom="sm" bg="var(--mantine-color-gray-0)">
+        <Stack gap="xs">
+          <Group justify="space-between" align="center">
+            <Group gap="xs">
+              <Badge color="blue" variant="filled" size="sm">
+                Step {active + 1} of {PROPOSAL_STEPS.length}
+              </Badge>
+              <Text size="sm" fw={700}>
+                {PROPOSAL_STEPS[active].label}
+              </Text>
+            </Group>
+            <Text size="xs" fw={600} c="dimmed">
+              {Math.round(((active + 1) / PROPOSAL_STEPS.length) * 100)}%
+            </Text>
+          </Group>
+
+          <Progress
+            value={((active + 1) / PROPOSAL_STEPS.length) * 100}
+            size="sm"
+            radius="xl"
+            color="blue"
+          />
+
+          <Text size="xs" c="dimmed">
+            {PROPOSAL_STEPS[active].description}
+          </Text>
+
+          {/* Quick-jump numbered buttons for mobile */}
+          <Group gap={6} justify="center" mt={4}>
+            {PROPOSAL_STEPS.map((s, idx) => (
+              <Button
+                key={idx}
+                size="compact-xs"
+                variant={active === idx ? "filled" : idx < active ? "light" : "subtle"}
+                color={idx <= active ? "blue" : "gray"}
+                onClick={() => setActive(idx)}
+                radius="xl"
+                styles={{ root: { minWidth: 28, height: 26, padding: "0 6px", fontSize: 12 } }}
+              >
+                {idx + 1}
+              </Button>
+            ))}
+          </Group>
+        </Stack>
+      </Card>
+
+      <Stepper active={active} onStepClick={setActive} size="sm" className="proposal-stepper" wrap={false}>
         <Stepper.Step label="Project Info" description="Basic details">
           <Card withBorder p="lg" mt="md">
             <Stack gap="md">
