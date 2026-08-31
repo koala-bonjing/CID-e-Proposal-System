@@ -3,3 +3,13 @@
 body {
   font-family: "Inter", sans-serif;
 }
+
+/* Hide desktop stepper headers on small screens in favor of custom mobile progress bars */
+@media (max-width: 768px) {
+  .proposal-stepper .mantine-Stepper-steps {
+    display: none !important;
+  }
+  .proposal-stepper .mantine-Stepper-content {
+    padding-top: 0 !important;
+  }
+}
