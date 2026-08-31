@@ -1,0 +1,316 @@
+{
+  "users": [
+    { "id": "u-admin-1", "name": "Admin User", "role": "ADMIN" },
+    { "id": "u-principal-1", "name": "Maria Santos", "role": "PRINCIPAL", "school": "Sorsogon National High School", "district": "Sorsogon City" },
+    { "id": "u-principal-2", "name": "Jose Reyes", "role": "PRINCIPAL", "school": "Bulan National High School", "district": "Bulan" },
+    { "id": "u-psds-1", "name": "Elena Cruz", "role": "PSDS", "district": "Sorsogon City" },
+    { "id": "u-psds-2", "name": "Roberto Mendoza", "role": "PSDS", "district": "Bulan" },
+    { "id": "u-eps-journalism", "name": "Ana Villanueva", "role": "COORDINATOR_EPS", "programArea": "Journalism" },
+    { "id": "u-eps-math", "name": "Carlos Bautista", "role": "COORDINATOR_EPS", "programArea": "Mathematics" },
+    { "id": "u-eps-reading", "name": "Teresa Lim", "role": "COORDINATOR_EPS", "programArea": "Reading" },
+    { "id": "u-cid-chief", "name": "Ricardo Flores", "role": "CID_CHIEF" },
+    { "id": "u-asds", "name": "Patricia Navarro", "role": "ASDS" },
+    { "id": "u-sds", "name": "Fernando Aquino", "role": "SDS" },
+    { "id": "u-proponent-1", "name": "Luisa Garcia", "role": "PROPONENT", "school": "Sorsogon National High School", "district": "Sorsogon City" },
+    { "id": "u-proponent-2", "name": "Miguel Torres", "role": "PROPONENT", "school": "Bulan National High School", "district": "Bulan" },
+    { "id": "u-proponent-3", "name": "Rosa Dela Cruz", "role": "PROPONENT", "school": "Castilla Elementary School", "district": "Sorsogon City" }
+  ],
+  "routingMatrix": [
+    { "programArea": "Reading", "coordinatorId": "u-eps-reading" },
+    { "programArea": "Mathematics", "coordinatorId": "u-eps-math" },
+    { "programArea": "Science", "coordinatorId": "u-eps-math" },
+    { "programArea": "MAPEH", "coordinatorId": "u-eps-reading" },
+    { "programArea": "Sports", "coordinatorId": "u-eps-reading" },
+    { "programArea": "Journalism", "coordinatorId": "u-eps-journalism" },
+    { "programArea": "DRRM", "coordinatorId": "u-eps-journalism" },
+    { "programArea": "Inclusive Education", "coordinatorId": "u-eps-reading" },
+    { "programArea": "Learning Resources", "coordinatorId": "u-eps-math" }
+  ],
+  "proposals": [
+    {
+      "id": "p-001",
+      "controlNumber": "",
+      "title": "Division Reading Camp 2026",
+      "proponentId": "u-proponent-1",
+      "originType": "TEACHER",
+      "school": "Sorsogon National High School",
+      "district": "Sorsogon City",
+      "programArea": "Reading",
+      "status": "DRAFT",
+      "currentVersion": 1,
+      "currentAssigneeRole": null,
+      "currentAssigneeId": null,
+      "createdAt": "2026-08-15T08:00:00Z",
+      "updatedAt": "2026-08-15T08:00:00Z"
+    },
+    {
+      "id": "p-002",
+      "controlNumber": "SDO-SOR-2026-000001",
+      "title": "Mathematics Olympiad Training Program",
+      "proponentId": "u-proponent-2",
+      "originType": "TEACHER",
+      "school": "Bulan National High School",
+      "district": "Bulan",
+      "programArea": "Mathematics",
+      "status": "REVISION_REQUIRED",
+      "currentVersion": 1,
+      "currentAssigneeRole": "PROPONENT",
+      "currentAssigneeId": "u-proponent-2",
+      "createdAt": "2026-08-10T09:00:00Z",
+      "updatedAt": "2026-08-20T14:30:00Z"
+    },
+    {
+      "id": "p-003",
+      "controlNumber": "SDO-SOR-2026-000002",
+      "title": "Campus Journalism Workshop",
+      "proponentId": "u-proponent-1",
+      "originType": "TEACHER",
+      "school": "Sorsogon National High School",
+      "district": "Sorsogon City",
+      "programArea": "Journalism",
+      "status": "FOR_COORDINATOR_EPS_REVIEW",
+      "currentVersion": 1,
+      "currentAssigneeRole": "COORDINATOR_EPS",
+      "currentAssigneeId": "u-eps-journalism",
+      "createdAt": "2026-08-05T10:00:00Z",
+      "updatedAt": "2026-08-18T11:00:00Z"
+    },
+    {
+      "id": "p-004",
+      "controlNumber": "SDO-SOR-2026-000003",
+      "title": "District Science Fair 2026",
+      "proponentId": "u-proponent-3",
+      "originType": "SCHOOL_HEAD",
+      "school": "Castilla Elementary School",
+      "district": "Sorsogon City",
+      "programArea": "Science",
+      "status": "FOR_SDS_APPROVAL",
+      "currentVersion": 1,
+      "currentAssigneeRole": "SDS",
+      "currentAssigneeId": "u-sds",
+      "createdAt": "2026-07-20T08:00:00Z",
+      "updatedAt": "2026-08-25T16:00:00Z"
+    },
+    {
+      "id": "p-005",
+      "controlNumber": "SDO-SOR-2026-000004",
+      "title": "Inclusive Education Awareness Seminar",
+      "proponentId": "u-proponent-3",
+      "originType": "DISTRICT",
+      "school": "Castilla Elementary School",
+      "district": "Sorsogon City",
+      "programArea": "Reading",
+      "status": "COMPLETED",
+      "currentVersion": 1,
+      "currentAssigneeRole": null,
+      "currentAssigneeId": null,
+      "createdAt": "2026-06-01T08:00:00Z",
+      "updatedAt": "2026-07-15T10:00:00Z"
+    }
+  ],
+  "proposalVersions": [
+    {
+      "id": "pv-001",
+      "proposalId": "p-001",
+      "version": 1,
+      "rationale": "To enhance reading comprehension skills among Grade 7-10 students through an intensive reading camp that promotes literacy and critical thinking.",
+      "objectives": ["Improve reading comprehension scores by 15%", "Develop critical thinking skills through literature analysis", "Foster a love for reading among students"],
+      "expectedOutputs": "At least 80% of participants show improvement in reading comprehension post-test scores.",
+      "implementationPlan": [
+        { "activity": "Pre-assessment of reading levels", "date": "2026-09-01", "responsible": "Luisa Garcia", "output": "Assessment results" },
+        { "activity": "Reading camp proper (5 days)", "date": "2026-09-15", "responsible": "Luisa Garcia", "output": "Completed camp activities" },
+        { "activity": "Post-assessment", "date": "2026-09-22", "responsible": "Luisa Garcia", "output": "Post-test results" }
+      ],
+      "budget": [
+        { "particular": "Reading materials", "qty": 50, "unitCost": 150 },
+        { "particular": "Snacks for participants", "qty": 50, "unitCost": 100 },
+        { "particular": "Certificates", "qty": 50, "unitCost": 25 }
+      ],
+      "fundingSource": "School MOOE",
+      "targetParticipants": "50 Grade 7-10 students with reading difficulties",
+      "proposedDate": "2026-09-15",
+      "venue": "Sorsogon National High School Library",
+      "attachments": ["reading_camp_design.pdf", "pre_assessment_tool.docx"],
+      "submittedAt": ""
+    },
+    {
+      "id": "pv-002",
+      "proposalId": "p-002",
+      "version": 1,
+      "rationale": "To prepare students for the Division and Regional Mathematics Olympiad by providing intensive training on problem-solving techniques.",
+      "objectives": ["Train 30 students in advanced mathematics problem-solving", "Achieve at least 3 winners in the Division Math Olympiad"],
+      "expectedOutputs": "Trained pool of math olympiad contestants; at least 3 division-level winners.",
+      "implementationPlan": [
+        { "activity": "Screening of participants", "date": "2026-09-05", "responsible": "Miguel Torres", "output": "List of qualified participants" },
+        { "activity": "Weekly training sessions (8 weeks)", "date": "2026-09-12", "responsible": "Miguel Torres", "output": "Training completion" },
+        { "activity": "Mock competition", "date": "2026-11-07", "responsible": "Miguel Torres", "output": "Mock competition results" }
+      ],
+      "budget": [
+        { "particular": "Training modules", "qty": 30, "unitCost": 200 },
+        { "particular": "Calculator sets", "qty": 10, "unitCost": 500 },
+        { "particular": "Venue rental for mock competition", "qty": 1, "unitCost": 3000 }
+      ],
+      "fundingSource": "School MOOE",
+      "targetParticipants": "30 students from Grades 9-12 with high aptitude in Mathematics",
+      "proposedDate": "2026-09-12",
+      "venue": "Bulan National High School Math Laboratory",
+      "attachments": ["training_module_outline.pdf"],
+      "submittedAt": "2026-08-10T09:30:00Z"
+    },
+    {
+      "id": "pv-003",
+      "proposalId": "p-003",
+      "version": 1,
+      "rationale": "To strengthen campus journalism skills and prepare student journalists for the Division Schools Press Conference.",
+      "objectives": ["Train 40 student journalists in news writing, editorial writing, and photojournalism", "Produce a school newspaper pilot issue"],
+      "expectedOutputs": "40 trained student journalists; 1 pilot newspaper issue published.",
+      "implementationPlan": [
+        { "activity": "Orientation and pre-assessment", "date": "2026-10-01", "responsible": "Luisa Garcia", "output": "Participant list and baseline skills assessment" },
+        { "activity": "Workshop proper (3 days)", "date": "2026-10-14", "responsible": "Luisa Garcia", "output": "Workshop outputs (articles, photos)" },
+        { "activity": "Newspaper production", "date": "2026-10-21", "responsible": "Luisa Garcia", "output": "Published pilot newspaper" }
+      ],
+      "budget": [
+        { "particular": "Resource speaker honorarium", "qty": 3, "unitCost": 2000 },
+        { "particular": "Printing of newspaper", "qty": 200, "unitCost": 50 },
+        { "particular": "Workshop materials", "qty": 40, "unitCost": 150 }
+      ],
+      "fundingSource": "School MOOE",
+      "targetParticipants": "40 student journalists from the campus press organization",
+      "proposedDate": "2026-10-14",
+      "venue": "Sorsogon National High School AVR",
+      "attachments": ["workshop_design.pdf", "speaker_profiles.pdf"],
+      "submittedAt": "2026-08-05T10:30:00Z"
+    },
+    {
+      "id": "pv-004",
+      "proposalId": "p-004",
+      "version": 1,
+      "rationale": "To showcase student innovations in science and technology at the district level, fostering scientific inquiry among elementary learners.",
+      "objectives": ["Exhibit at least 20 science projects from schools in the district", "Select top 5 entries for the Division Science Fair"],
+      "expectedOutputs": "20+ science project exhibits; 5 qualifiers for Division Science Fair.",
+      "implementationPlan": [
+        { "activity": "Call for entries", "date": "2026-08-01", "responsible": "Rosa Dela Cruz", "output": "Entry forms received" },
+        { "activity": "School-level screening", "date": "2026-09-01", "responsible": "Rosa Dela Cruz", "output": "Qualified entries" },
+        { "activity": "District Science Fair", "date": "2026-10-15", "responsible": "Rosa Dela Cruz", "output": "Winners and qualifiers" }
+      ],
+      "budget": [
+        { "particular": "Tarpaulin and banners", "qty": 5, "unitCost": 800 },
+        { "particular": "Judges honorarium", "qty": 5, "unitCost": 1500 },
+        { "particular": "Awards and certificates", "qty": 20, "unitCost": 200 }
+      ],
+      "fundingSource": "Division MOOE",
+      "targetParticipants": "Elementary school students from Sorsogon City district",
+      "proposedDate": "2026-10-15",
+      "venue": "Castilla Elementary School Covered Court",
+      "attachments": ["science_fair_mechanics.pdf"],
+      "submittedAt": "2026-07-20T08:30:00Z"
+    },
+    {
+      "id": "pv-005",
+      "proposalId": "p-005",
+      "version": 1,
+      "rationale": "To raise awareness on inclusive education practices among teachers and school administrators in the division.",
+      "objectives": ["Orient 100 teachers on inclusive education policies and best practices", "Develop school-level inclusive education action plans"],
+      "expectedOutputs": "100 teachers oriented; school-level action plans drafted.",
+      "implementationPlan": [
+        { "activity": "Seminar proper (2 days)", "date": "2026-06-15", "responsible": "Rosa Dela Cruz", "output": "Seminar completion" },
+        { "activity": "Action plan workshop", "date": "2026-06-16", "responsible": "Rosa Dela Cruz", "output": "Draft action plans" },
+        { "activity": "Follow-up monitoring", "date": "2026-07-15", "responsible": "Rosa Dela Cruz", "output": "Monitoring report" }
+      ],
+      "budget": [
+        { "particular": "Venue rental", "qty": 2, "unitCost": 5000 },
+        { "particular": "Meals for participants", "qty": 100, "unitCost": 350 },
+        { "particular": "Resource materials", "qty": 100, "unitCost": 100 }
+      ],
+      "fundingSource": "Division MOOE",
+      "targetParticipants": "100 teachers and school heads from the division",
+      "proposedDate": "2026-06-15",
+      "venue": "DepEd Sorsogon Division Office Conference Hall",
+      "attachments": ["seminar_design.pdf", "ie_policy_reference.pdf"],
+      "submittedAt": "2026-06-01T08:30:00Z"
+    }
+  ],
+  "auditLog": [
+    {
+      "id": "al-001", "proposalId": "p-002", "actorId": "u-proponent-2", "actorRole": "PROPONENT",
+      "action": "SUBMITTED", "timestamp": "2026-08-10T09:30:00Z"
+    },
+    {
+      "id": "al-002", "proposalId": "p-002", "actorId": "u-principal-2", "actorRole": "PRINCIPAL",
+      "action": "APPROVED", "comment": "Approved. Good initiative for our students.", "timestamp": "2026-08-12T10:00:00Z"
+    },
+    {
+      "id": "al-003", "proposalId": "p-002", "actorId": "u-psds-2", "actorRole": "PSDS",
+      "action": "APPROVED", "comment": "Endorsed for technical review.", "timestamp": "2026-08-15T14:00:00Z"
+    },
+    {
+      "id": "al-004", "proposalId": "p-002", "actorId": "u-eps-math", "actorRole": "COORDINATOR_EPS",
+      "action": "RETURNED_FOR_REVISION", "comment": "Budget breakdown needs more detail. Please itemize the calculator sets and specify brands. Also, add a sustainability plan section.", "timestamp": "2026-08-20T14:30:00Z"
+    },
+    {
+      "id": "al-010", "proposalId": "p-003", "actorId": "u-proponent-1", "actorRole": "PROPONENT",
+      "action": "SUBMITTED", "timestamp": "2026-08-05T10:30:00Z"
+    },
+    {
+      "id": "al-011", "proposalId": "p-003", "actorId": "u-principal-1", "actorRole": "PRINCIPAL",
+      "action": "APPROVED", "comment": "Approved. Journalism workshop will benefit our press club.", "timestamp": "2026-08-08T09:00:00Z"
+    },
+    {
+      "id": "al-012", "proposalId": "p-003", "actorId": "u-psds-1", "actorRole": "PSDS",
+      "action": "APPROVED", "comment": "Endorsed.", "timestamp": "2026-08-12T11:00:00Z"
+    },
+    {
+      "id": "al-013", "proposalId": "p-003", "actorId": "u-eps-journalism", "actorRole": "COORDINATOR_EPS",
+      "action": "ROUTED", "comment": "Routed to Coordinator/EPS for technical review.", "timestamp": "2026-08-18T11:00:00Z"
+    },
+    {
+      "id": "al-020", "proposalId": "p-004", "actorId": "u-proponent-3", "actorRole": "PROPONENT",
+      "action": "SUBMITTED", "timestamp": "2026-07-20T08:30:00Z"
+    },
+    {
+      "id": "al-021", "proposalId": "p-004", "actorId": "u-psds-1", "actorRole": "PSDS",
+      "action": "APPROVED", "comment": "Good proposal. Endorsed.", "timestamp": "2026-07-25T10:00:00Z"
+    },
+    {
+      "id": "al-022", "proposalId": "p-004", "actorId": "u-eps-math", "actorRole": "COORDINATOR_EPS",
+      "action": "APPROVED", "comment": "Technically sound. Approved.", "timestamp": "2026-08-01T14:00:00Z"
+    },
+    {
+      "id": "al-023", "proposalId": "p-004", "actorId": "u-cid-chief", "actorRole": "CID_CHIEF",
+      "action": "APPROVED", "comment": "Approved for ASDS review.", "timestamp": "2026-08-10T09:00:00Z"
+    },
+    {
+      "id": "al-024", "proposalId": "p-004", "actorId": "u-asds", "actorRole": "ASDS",
+      "action": "APPROVED", "comment": "Approved. Forwarding to SDS.", "timestamp": "2026-08-20T11:00:00Z"
+    },
+    {
+      "id": "al-030", "proposalId": "p-005", "actorId": "u-proponent-3", "actorRole": "PROPONENT",
+      "action": "SUBMITTED", "timestamp": "2026-06-01T08:30:00Z"
+    },
+    {
+      "id": "al-031", "proposalId": "p-005", "actorId": "u-psds-1", "actorRole": "PSDS",
+      "action": "APPROVED", "comment": "Endorsed for review.", "timestamp": "2026-06-05T10:00:00Z"
+    },
+    {
+      "id": "al-032", "proposalId": "p-005", "actorId": "u-eps-reading", "actorRole": "COORDINATOR_EPS",
+      "action": "APPROVED", "comment": "Technically approved.", "timestamp": "2026-06-10T14:00:00Z"
+    },
+    {
+      "id": "al-033", "proposalId": "p-005", "actorId": "u-cid-chief", "actorRole": "CID_CHIEF",
+      "action": "APPROVED", "comment": "Approved.", "timestamp": "2026-06-20T09:00:00Z"
+    },
+    {
+      "id": "al-034", "proposalId": "p-005", "actorId": "u-asds", "actorRole": "ASDS",
+      "action": "APPROVED", "comment": "Approved for SDS.", "timestamp": "2026-06-28T11:00:00Z"
+    },
+    {
+      "id": "al-035", "proposalId": "p-005", "actorId": "u-sds", "actorRole": "SDS",
+      "action": "APPROVED", "comment": "Final approval granted.", "timestamp": "2026-07-05T10:00:00Z"
+    },
+    {
+      "id": "al-036", "proposalId": "p-005", "actorId": "u-sds", "actorRole": "SDS",
+      "action": "FINALIZED", "comment": "Proposal completed and finalized.", "timestamp": "2026-07-15T10:00:00Z"
+    }
+  ],
+  "controlNumberSeq": 5
+}

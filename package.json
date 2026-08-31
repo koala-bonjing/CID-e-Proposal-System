@@ -1,0 +1,36 @@
+{
+  "name": "proposal-dp-mas",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@mantine/core": "^7",
+    "@mantine/hooks": "^7",
+    "@mantine/notifications": "^7",
+    "@tabler/icons-react": "^3",
+    "@tanstack/react-query": "^5",
+    "dayjs": "^1",
+    "next": "16.3.3",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "zustand": "^5"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.3",
+    "postcss-preset-mantine": "^1",
+    "postcss-simple-vars": "^7",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  },
+  "packageManager": "pnpm@11.5.0"
+}
