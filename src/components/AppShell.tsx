@@ -88,7 +88,7 @@ export function AppShellLayout({ children }: { children: React.ReactNode }) {
               />
               <div>
                 <Text fw={700} size="md" lh={1.1}>
-                  <Text span c="blue" inherit>DP-MAS</Text>
+                  <Text span c="blue" inherit>CID e-Proposal System</Text>
                 </Text>
                 <Text size="xs" c="dimmed" lh={1}>
                   SDO Sorsogon

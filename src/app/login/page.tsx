@@ -66,7 +66,7 @@ export default function LoginPage() {
           fit="contain"
         />
         <Title order={1}>
-          <Text span c="blue" inherit>DP-MAS</Text>
+          <Text span c="blue" inherit>CID e-Proposal System</Text>
         </Title>
         <Text size="lg" c="dimmed">
           Proposal Management & Approval System
