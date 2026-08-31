@@ -13,6 +13,7 @@ import {
   Box,
   Burger,
   Image,
+  Tooltip,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import {
@@ -97,40 +98,54 @@ export function AppShellLayout({ children }: { children: React.ReactNode }) {
             </Group>
           </Group>
 
-          <Group gap="sm">
+          <Group gap="xs">
             {user ? (
-              <>
-                <Badge variant="light" size="lg">
+              <Group gap="xs">
+                <Badge variant="light" size="md">
                   {ROLE_LABELS[user.role]}
                 </Badge>
-                <Menu shadow="md" width={200}>
-                  <Menu.Target>
-                    <UnstyledButton>
-                      <Group gap="xs">
-                        <Avatar size="sm" color="blue" radius="xl">
-                          {user.name.charAt(0)}
-                        </Avatar>
-                        <Text size="sm" fw={500}>{user.name}</Text>
-                      </Group>
-                    </UnstyledButton>
-                  </Menu.Target>
-                  <Menu.Dropdown>
-                    <Menu.Item
-                      leftSection={<IconSwitchHorizontal size={14} />}
-                      onClick={() => router.push("/login")}
-                    >
-                      Switch User
-                    </Menu.Item>
-                    <Menu.Item
-                      leftSection={<IconLogout size={14} />}
-                      color="red"
-                      onClick={() => { logout(); router.push("/login"); }}
-                    >
-                      Logout
-                    </Menu.Item>
-                  </Menu.Dropdown>
-                </Menu>
-              </>
+                <Group
+                  gap={6}
+                  px="xs"
+                  py={4}
+                  style={{
+                    borderRadius: 6,
+
+                  }}
+                >
+                  <Avatar size="sm" color="blue" radius="xl">
+                    {user.name.charAt(0)}
+                  </Avatar>
+                  <Text size="sm" fw={600}>{user.name}</Text>
+                </Group>
+
+                <Tooltip label="Switch user / role">
+                  <Button
+                    variant="subtle"
+                    color="blue"
+                    size="xs"
+                    leftSection={<IconSwitchHorizontal size={14} />}
+                    onClick={() => router.push("/login")}
+                  >
+                    Switch User
+                  </Button>
+                </Tooltip>
+
+                <Tooltip label="Logout">
+                  <Button
+                    variant="subtle"
+                    color="red"
+                    size="xs"
+                    leftSection={<IconLogout size={14} />}
+                    onClick={() => {
+                      logout();
+                      router.push("/login");
+                    }}
+                  >
+                    Logout
+                  </Button>
+                </Tooltip>
+              </Group>
             ) : (
               <Button
                 variant="light"
