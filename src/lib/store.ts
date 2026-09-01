@@ -116,36 +116,24 @@ export function getProposalsForUser(user: User): Proposal[] {
 
   switch (user.role) {
     case "ADMIN":
+    case "SDS":
       return all;
 
     case "PROPONENT":
       return all.filter((p) => p.proponentId === user.id);
 
     case "PRINCIPAL":
-      return all.filter(
-        (p) => p.status === "FOR_PRINCIPAL_APPROVAL" && p.school === user.school
-      );
+      return all.filter((p) => p.school === user.school);
 
     case "PSDS":
-      return all.filter(
-        (p) => p.status === "FOR_PSDS_APPROVAL" && p.district === user.district
-      );
+      return all.filter((p) => p.district === user.district);
 
     case "COORDINATOR_EPS":
-      return all.filter(
-        (p) =>
-          p.status === "FOR_COORDINATOR_EPS_REVIEW" &&
-          p.programArea === user.programArea
-      );
+      return all.filter((p) => p.programArea === user.programArea);
 
     case "CID_CHIEF":
-      return all.filter((p) => p.status === "FOR_CID_CHIEF_APPROVAL");
-
     case "ASDS":
-      return all.filter((p) => p.status === "FOR_ASDS_APPROVAL");
-
-    case "SDS":
-      return all.filter((p) => p.status === "FOR_SDS_APPROVAL");
+      return all.filter((p) => p.status !== "DRAFT");
 
     default:
       return [];

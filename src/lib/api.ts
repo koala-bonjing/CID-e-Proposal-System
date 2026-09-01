@@ -83,3 +83,34 @@ export function updateRoutingMatrix(entries: RoutingMatrixEntry[]): Promise<Rout
     body: JSON.stringify(entries),
   });
 }
+
+// ── PDF Export ──────────────────────────────────────────────────────────
+
+export async function downloadProposalPdf(id: string, defaultFilename?: string): Promise<void> {
+  const res = await fetch(`${BASE}/proposals/${id}/pdf`);
+  if (!res.ok) {
+    const errorBody = await res.json().catch(() => ({}));
+    throw new Error(errorBody.error ?? `Failed to download PDF: ${res.statusText}`);
+  }
+
+  const blob = await res.blob();
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+
+  const disposition = res.headers.get("Content-Disposition");
+  let filename = defaultFilename || `proposal-${id}.pdf`;
+  if (disposition && disposition.includes("filename=")) {
+    const match = disposition.match(/filename="?([^"]+)"?/);
+    if (match && match[1]) {
+      filename = match[1];
+    }
+  }
+
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  window.URL.revokeObjectURL(url);
+}
+

@@ -51,6 +51,8 @@ function NewProposalContent() {
   const [programArea, setProgramArea] = useState("");
   const [proposedDate, setProposedDate] = useState("");
   const [venue, setVenue] = useState("");
+  const [school, setSchool] = useState("");
+  const [district, setDistrict] = useState("");
   const [rationale, setRationale] = useState("");
   const [objectives, setObjectives] = useState<string[]>([""]);
   const [expectedOutputs, setExpectedOutputs] = useState("");
@@ -64,9 +66,21 @@ function NewProposalContent() {
   const [targetParticipants, setTargetParticipants] = useState("");
   const [attachments, setAttachments] = useState<string[]>([]);
 
-  // Load existing data for resubmission
+  // Load existing data or set user defaults
   useEffect(() => {
     if (!user) { router.push("/login"); return; }
+    if (user.school) {
+      setSchool(user.school);
+    } else {
+      setSchool((prev) => prev || (user.role === "ADMIN" || user.role === "SDS" ? "SDO Sorsogon Division Office" : ""));
+    }
+
+    if (user.district) {
+      setDistrict(user.district);
+    } else {
+      setDistrict((prev) => prev || (user.role === "ADMIN" || user.role === "SDS" ? "Sorsogon Division" : ""));
+    }
+
     if (resubmitId) {
       fetchProposal(resubmitId).then((data) => {
         const latestVersion = data.versions[data.versions.length - 1];
@@ -74,6 +88,8 @@ function NewProposalContent() {
           setTitle(data.title);
           setOriginType(data.originType);
           setProgramArea(data.programArea);
+          setSchool(data.school);
+          setDistrict(data.district);
           setRationale(latestVersion.rationale);
           setObjectives(latestVersion.objectives);
           setExpectedOutputs(latestVersion.expectedOutputs);
@@ -95,6 +111,8 @@ function NewProposalContent() {
     const missing: string[] = [];
     if (!title.trim()) missing.push("Title");
     if (!programArea) missing.push("Program Area");
+    if (!school.trim()) missing.push("School / Office");
+    if (!district.trim()) missing.push("District");
     if (!rationale.trim()) missing.push("Rationale");
     if (!objectives.some((o) => o.trim())) missing.push("Objectives");
     if (!expectedOutputs.trim()) missing.push("Expected Outputs");
@@ -125,8 +143,8 @@ function NewProposalContent() {
         budget: budget.filter((r) => r.particular.trim()),
         fundingSource, targetParticipants, proposedDate, venue, attachments,
         proponentId: user!.id,
-        school: user!.school ?? "",
-        district: user!.district ?? "",
+        school: school.trim(),
+        district: district.trim(),
       };
 
       if (resubmitId) {

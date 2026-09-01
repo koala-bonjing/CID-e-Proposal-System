@@ -1,4 +1,5 @@
 "use client";
+import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import {
   AppShell as MantineAppShell,
@@ -34,10 +35,10 @@ import { ROLE_LABELS } from "@/types";
 import type { Role } from "@/types";
 
 const NAV_ITEMS: { label: string; href: string; icon: typeof IconFileText; roles: Role[] | "all" }[] = [
+  { label: "Management Dashboard", href: "/dashboard/management", icon: IconChartBar, roles: ["CID_CHIEF", "ASDS", "SDS", "ADMIN"] },
   { label: "My Proposals", href: "/proponent/dashboard", icon: IconFileText, roles: ["PROPONENT"] },
   { label: "New Proposal", href: "/proponent/new", icon: IconPlus, roles: ["PROPONENT"] },
-  { label: "Review Queue", href: "/reviewer/queue", icon: IconChecklist, roles: ["PRINCIPAL", "PSDS", "COORDINATOR_EPS", "CID_CHIEF", "ASDS", "SDS"] },
-  { label: "Management Dashboard", href: "/dashboard/management", icon: IconChartBar, roles: ["CID_CHIEF", "ASDS", "SDS", "ADMIN"] },
+  { label: "Review Queue", href: "/reviewer/queue", icon: IconChecklist, roles: ["PRINCIPAL", "PSDS", "COORDINATOR_EPS", "CID_CHIEF", "ASDS", "SDS", "ADMIN"] },
   { label: "Routing Matrix", href: "/admin/routing-matrix", icon: IconRoute, roles: ["ADMIN"] },
   { label: "Users", href: "/admin/users", icon: IconUsers, roles: ["ADMIN"] },
 ];
@@ -46,15 +47,22 @@ export function AppShellLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
   const { user, logout } = useAuthStore();
+  const [mounted, setMounted] = useState(false);
   const [mobileOpened, { toggle: toggleMobile, close: closeMobile }] = useDisclosure(false);
   const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   if (pathname === "/login") {
     return <>{children}</>;
   }
 
-  const visibleNav = user
-    ? NAV_ITEMS.filter((item) => item.roles === "all" || item.roles.includes(user.role))
+  const currentUser = mounted ? user : null;
+
+  const visibleNav = currentUser
+    ? NAV_ITEMS.filter((item) => item.roles === "all" || item.roles.includes(currentUser.role))
     : [];
 
   const handleNavClick = (href: string) => {
@@ -84,15 +92,15 @@ export function AppShellLayout({ children }: { children: React.ReactNode }) {
       >
         <Stack justify="space-between" h="calc(100dvh - 90px)">
           <Box>
-            {user && (
+            {currentUser && (
               <Card withBorder p="xs" radius="md" mb="md" bg="var(--mantine-color-gray-0)">
                 <Group gap="xs" wrap="nowrap">
                   <Avatar size="md" color="blue" radius="xl">
-                    {user.name.charAt(0)}
+                    {currentUser.name.charAt(0)}
                   </Avatar>
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <Text size="sm" fw={600} lineClamp={1}>{user.name}</Text>
-                    <Badge variant="light" size="xs">{ROLE_LABELS[user.role]}</Badge>
+                    <Text size="sm" fw={600} lineClamp={1}>{currentUser.name}</Text>
+                    <Badge variant="light" size="xs">{ROLE_LABELS[currentUser.role]}</Badge>
                   </div>
                 </Group>
               </Card>
@@ -113,7 +121,7 @@ export function AppShellLayout({ children }: { children: React.ReactNode }) {
             </Stack>
           </Box>
 
-          {user && (
+          {currentUser && (
             <Stack gap="xs" pt="md" style={{ borderTop: "1px solid var(--mantine-color-gray-2)" }}>
               <Button
                 variant="light"
@@ -153,7 +161,7 @@ export function AppShellLayout({ children }: { children: React.ReactNode }) {
           <Group h="100%" px={{ base: "xs", sm: "md" }} justify="space-between" wrap="nowrap">
             {/* Left: Burger + Branding */}
             <Group gap="xs" wrap="nowrap">
-              {user && (
+              {currentUser && (
                 <>
                   <Burger
                     opened={mobileOpened}
@@ -175,7 +183,7 @@ export function AppShellLayout({ children }: { children: React.ReactNode }) {
                 gap="xs"
                 wrap="nowrap"
                 style={{ cursor: "pointer" }}
-                onClick={() => router.push(user ? getHomeRoute(user.role) : "/login")}
+                onClick={() => router.push(currentUser ? getHomeRoute(currentUser.role) : "/login")}
               >
                 <Image
                   src="/logo.png"
@@ -197,10 +205,10 @@ export function AppShellLayout({ children }: { children: React.ReactNode }) {
 
             {/* Right: User profile & actions */}
             <Group gap="xs" wrap="nowrap">
-              {user ? (
+              {currentUser ? (
                 <Group gap="xs" wrap="nowrap">
                   <Badge variant="light" size="sm" visibleFrom="sm">
-                    {ROLE_LABELS[user.role]}
+                    {ROLE_LABELS[currentUser.role]}
                   </Badge>
 
                   {/* User avatar + name */}
@@ -215,10 +223,10 @@ export function AppShellLayout({ children }: { children: React.ReactNode }) {
                     }}
                   >
                     <Avatar size="sm" color="blue" radius="xl">
-                      {user.name.charAt(0)}
+                      {currentUser.name.charAt(0)}
                     </Avatar>
                     <Text size="xs" fw={600} visibleFrom="md" lineClamp={1}>
-                      {user.name}
+                      {currentUser.name}
                     </Text>
                   </Group>
 
@@ -324,8 +332,14 @@ export function AppShellLayout({ children }: { children: React.ReactNode }) {
 
 function getHomeRoute(role: Role): string {
   switch (role) {
-    case "PROPONENT": return "/proponent/dashboard";
-    case "ADMIN": return "/admin/users";
-    default: return "/reviewer/queue";
+    case "PROPONENT":
+      return "/proponent/dashboard";
+    case "CID_CHIEF":
+    case "ASDS":
+    case "SDS":
+    case "ADMIN":
+      return "/dashboard/management";
+    default:
+      return "/reviewer/queue";
   }
 }

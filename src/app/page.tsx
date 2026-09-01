@@ -11,9 +11,17 @@ export default function HomePage() {
   useEffect(() => {
     if (!user) { router.push("/login"); return; }
     switch (user.role) {
-      case "PROPONENT": router.push("/proponent/dashboard"); break;
-      case "ADMIN": router.push("/admin/users"); break;
-      default: router.push("/reviewer/queue");
+      case "PROPONENT":
+        router.push("/proponent/dashboard");
+        break;
+      case "CID_CHIEF":
+      case "ASDS":
+      case "SDS":
+      case "ADMIN":
+        router.push("/dashboard/management");
+        break;
+      default:
+        router.push("/reviewer/queue");
     }
   }, [user, router]);
 

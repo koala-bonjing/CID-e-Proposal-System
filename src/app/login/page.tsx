@@ -57,10 +57,11 @@ export default function LoginPage() {
 
   const handleLogin = (user: User) => {
     login(user);
-    const route = user.role === "PROPONENT"
-      ? "/proponent/dashboard"
-      : user.role === "ADMIN"
-        ? "/admin/users"
+    const route =
+      user.role === "PROPONENT"
+        ? "/proponent/dashboard"
+        : ["CID_CHIEF", "ASDS", "SDS", "ADMIN"].includes(user.role)
+        ? "/dashboard/management"
         : "/reviewer/queue";
     router.push(route);
   };
